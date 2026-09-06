@@ -1,5 +1,0 @@
-cd server
-npm init -y
-npm install express dotenv cors
-npm install -D typescript @types/express @types/node ts-node-dev @types/cors
-npx tsc --init
