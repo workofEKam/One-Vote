@@ -43,10 +43,13 @@ const loginUser = async (req, res, next) => {
         const token = generateToken(user._id, user.role);
         user.password = undefined;
 
+        const isProd = process.env.NODE_ENV === "production";
         return res
             .cookie("token", token, {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000,
+                secure: isProd,
+                sameSite: isProd ? "none" : "lax",
             })
             .status(200)
             .json({
@@ -68,7 +71,12 @@ const getProfile = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-    res.clearCookie("token");
+    const isProd = process.env.NODE_ENV === "production";
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? "none" : "lax",
+    });
     res.status(200).json({
         success: true,
         message: "Logged out successfully",
