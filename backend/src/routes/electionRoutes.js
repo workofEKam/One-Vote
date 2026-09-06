@@ -12,9 +12,8 @@ const router = express.Router();
 router.post("/",authMiddleware,adminMiddleware,createElection);
 router.get("/",authMiddleware,adminMiddleware,getAllElections);
 router.get("/active",authMiddleware,getActiveElection);
-router.patch("/:id/status",authMiddleware,adminMiddleware,updateElectionStatus,getElectionStatistics);
-router.get("/:electionID/statistics",authMiddleware,adminMiddleware,getElectionStatistics
-);
+router.patch("/:id/status", authMiddleware, adminMiddleware, updateElectionStatus);
+router.get("/:electionID/statistics", authMiddleware, adminMiddleware, getElectionStatistics);
 
 // candidate management
 router.get("/:electionID/eligible-students",authMiddleware,adminMiddleware,getEligibleStudents);
